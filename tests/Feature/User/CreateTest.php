@@ -49,3 +49,13 @@ it('should not be able to a user create another user', function () {
         'role_id' => 1,
     ]);
 });
+
+test('only authenticated users can create a new question', function () {
+    post(route('user.store'), [
+        'name'                  => 'Test User',
+        'email'                 => 'test@example.com',
+        'password'              => 'password',
+        'password_confirmation' => 'password',
+        'role_id'               => Role::USER,
+    ])->assertRedirect('login');
+});

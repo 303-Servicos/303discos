@@ -18,6 +18,13 @@ class UserController extends Controller
         ]);
     }
 
+    public function create(): View
+    {
+        $this->authorize('create', User::class);
+
+        return view('users.create');
+    }
+
     public function store(): RedirectResponse
     {
         $this->authorize('create', User::class);

@@ -1,9 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-header title="{{ __('Usuários') }}"/>
-        @can('update', user())
-            <button class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md">Criar</button>
-        @endcan
+        <x-header title="{{ __('Usuários') }}">
+            @can('create', \App\Models\User::class)
+                <a href="{{ route('users.create') }}" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md">
+                    Criar novo usuário
+                </a>
+            @endcan
+        </x-header>
     </x-slot>
 
     <x-container>

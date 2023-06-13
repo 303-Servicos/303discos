@@ -30,12 +30,12 @@ it('should only show the edit and create buttons if the logged user is a admin',
     $response = get(route('users.index'));
 
     $response->assertSee('Editar');
-    $response->assertSee('Criar');
+    $response->assertSee('Criar novo usuário');
 
     actingAs($user);
 
     $response = get(route('users.index'));
 
     $response->assertDontSee('Editar');
-    $response->assertDontSee('Criar');
+    $response->assertDontSee('Criar novo usuário');
 });

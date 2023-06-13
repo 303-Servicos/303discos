@@ -2,7 +2,7 @@
 
 use App\Models\{Role, User};
 
-use function Pest\Laravel\{actingAs, assertDatabaseCount, assertDatabaseHas, assertDatabaseMissing, post};
+use function Pest\Laravel\{actingAs, assertDatabaseCount, assertDatabaseHas, assertDatabaseMissing, get, post};
 
 it('should be able to a admin create a user', function () {
     $this->seed();
@@ -58,4 +58,14 @@ test('only authenticated users can create a new question', function () {
         'password_confirmation' => 'password',
         'role_id'               => Role::USER,
     ])->assertRedirect('login');
+});
+
+it('should be able to render the user create page', function () {
+    $this->seed();
+
+    $admin = User::find(1);
+
+    actingAs($admin);
+
+    get(route('users.create'))->assertOk();
 });

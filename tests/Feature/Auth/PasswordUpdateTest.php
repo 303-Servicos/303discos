@@ -4,6 +4,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 test('password can be updated', function () {
+    $this->seed(RoleSeeder::class);
     $user = User::factory()->create();
 
     $response = $this
@@ -23,6 +24,7 @@ test('password can be updated', function () {
 });
 
 test('correct password must be provided to update password', function () {
+    $this->seed(RoleSeeder::class);
     $user = User::factory()->create();
 
     $response = $this

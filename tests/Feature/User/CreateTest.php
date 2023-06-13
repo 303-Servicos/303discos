@@ -11,7 +11,7 @@ it('should be able to a admin create a user', function () {
 
     actingAs($admin);
 
-    post(route('user.store'), [
+    post(route('users.store'), [
         'name'                  => 'Test User',
         'email'                 => 'test@example.com',
         'password'              => 'password',
@@ -33,7 +33,7 @@ it('should not be able to a user create another user', function () {
 
     actingAs($user);
 
-    $request = post(route('user.store'), [
+    $request = post(route('users.store'), [
         'name'                  => 'Test User',
         'email'                 => 'test@example.com',
         'password'              => 'password',
@@ -51,7 +51,7 @@ it('should not be able to a user create another user', function () {
 });
 
 test('only authenticated users can create a new question', function () {
-    post(route('user.store'), [
+    post(route('users.store'), [
         'name'                  => 'Test User',
         'email'                 => 'test@example.com',
         'password'              => 'password',

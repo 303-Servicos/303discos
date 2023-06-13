@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (app()->isLocal()) {
-        $user = User::find(1);
-
-        if ($user) {
+        if (User::find(1)) {
             auth()->loginUsingId(1);
 
             return view('dashboard');
@@ -23,11 +21,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::post('/user', [UserController::class, 'store'])->name('user.store');
+    #region user
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    #endregion
 
+    #region profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    #endregion
 });
 
 require __DIR__ . '/auth.php';

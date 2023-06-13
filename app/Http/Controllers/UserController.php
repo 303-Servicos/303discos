@@ -3,11 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
+    public function index(): View
+    {
+        $users = User::all();
+
+        return view('users.index', [
+            'users' => $users,
+        ]);
+    }
+
     public function store(): RedirectResponse
     {
         $this->authorize('create', User::class);

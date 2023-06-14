@@ -32,6 +32,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'password'          => 'hashed',
     ];
 
+    public function setPasswordAttribute(string $password): void
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
@@ -46,4 +51,5 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->role_id == Role::USER;
     }
+
 }

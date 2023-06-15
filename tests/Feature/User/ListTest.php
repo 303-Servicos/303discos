@@ -1,13 +1,23 @@
 <?php
 
-use App\Models\User;
+use App\Models\{Role, User};
 
 use function Pest\Laravel\{actingAs, get};
+
+it('should render the user list page', function () {
+    $this->seed();
+
+    $user = User::factory()->create();
+
+    actingAs($user);
+
+    get(route('users.index'))->assertOk();
+});
 
 it('should list all the users', function () {
     $this->seed();
 
-    $admin = User::find(1);
+    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
     $users = User::factory()->count(5)->create();
 
     actingAs($admin);
@@ -22,7 +32,7 @@ it('should list all the users', function () {
 it('should only show the edit and create buttons if the logged user is a admin', function () {
     $this->seed();
 
-    $admin = User::find(1);
+    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
     $user  = User::factory()->create();
 
     actingAs($admin);

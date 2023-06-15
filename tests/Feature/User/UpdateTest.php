@@ -1,13 +1,13 @@
 <?php
 
-use App\Models\User;
+use App\Models\{Role, User};
 
 use function Pest\Laravel\{actingAs, assertDatabaseHas, assertDatabaseMissing, get, post};
 
 it('should be able to a admin update a user', function () {
     $this->seed();
 
-    $admin = User::find(1);
+    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
     $user  = User::factory()->create(['name' => 'Test User']);
 
     actingAs($admin);

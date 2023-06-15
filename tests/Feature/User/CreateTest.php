@@ -7,7 +7,7 @@ use function Pest\Laravel\{actingAs, assertDatabaseCount, assertDatabaseHas, ass
 it('should be able to render the user create page', function () {
     $this->seed();
 
-    $admin = User::find(1);
+    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
 
     actingAs($admin);
 
@@ -17,7 +17,7 @@ it('should be able to render the user create page', function () {
 it('should be able to a admin create a user', function () {
     $this->seed();
 
-    $admin = User::find(1);
+    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
 
     actingAs($admin);
 
@@ -29,7 +29,7 @@ it('should be able to a admin create a user', function () {
         'role_id'               => Role::USER,
     ])->assertRedirect();
 
-    assertDatabaseCount('users', 2);
+    assertDatabaseCount('users', 3);
     assertDatabaseHas('users', [
         'name'    => 'Test User',
         'role_id' => 2,

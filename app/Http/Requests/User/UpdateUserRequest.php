@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules;
+use Illuminate\Validation\{Rule, Rules};
 
-class CreateUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * @return array<string,array<int,string|null>>
@@ -14,10 +13,9 @@ class CreateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => ['required', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role_id'  => ['required', 'integer'],
+            'name'    => ['required', 'max:255'],
+            'email'   => ['required', 'string', 'email', 'max:255', Rule::unique("users", 'email')->ignore($this->route('user'))],
+            'role_id' => ['required', 'integer'],
         ];
     }
 
@@ -39,10 +37,9 @@ class CreateUserRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'name'     => 'Nome',
-            'email'    => 'E-mail',
-            'password' => 'Senha',
-            'role_id'  => 'Tipo de usuário',
+            'name'    => 'Nome',
+            'email'   => 'E-mail',
+            'role_id' => 'Tipo de usuário',
         ];
     }
 

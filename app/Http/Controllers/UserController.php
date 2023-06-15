@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\User\{CreateUserRequest, UpdateUserRequest};
 use App\Models\{Role, User};
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -20,10 +20,8 @@ class UserController extends Controller
     {
         $this->authorize('create', User::class);
 
-        $roles = Role::select(['id', 'name'])->get();
-
         return view('users.create', [
-            'roles' => $roles,
+            'roles' => Role::select(['id', 'name'])->get(),
         ]);
     }
 
@@ -34,5 +32,24 @@ class UserController extends Controller
         User::create($request->validated());
 
         return to_route('users.index')->with('success', 'User created successfully.');
+    }
+
+    public function edit(User $user): View
+    {
+        $this->authorize('update', $user);
+
+        return view('users.edit', [
+            'user'  => $user,
+            'roles' => Role::select(['id', 'name'])->get(),
+        ]);
+    }
+
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
+    {
+        $this->authorize('update', $user);
+
+        $user->update($request->validated());
+
+        return to_route('users.index')->with('success', 'User updated successfully.');
     }
 }

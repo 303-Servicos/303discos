@@ -18,7 +18,7 @@
             <option selected disabled>{{ $placeholder }}</option>
         @endif
         @foreach($options as $key => $option)
-            <option value="{{ $option->id }}" @selected(old($name) == $option->id)>{{ $option->name }}</option>
+            <option value="{{ $option->id }}" @selected(old($name, $value) == $option->id)>{{ $option->name }}</option>
         @endforeach
     </select>
     @error($name)

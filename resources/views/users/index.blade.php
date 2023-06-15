@@ -2,7 +2,9 @@
     <x-slot name="header">
         <x-header title="{{ __('Usuários') }}">
             @can('create', \App\Models\User::class)
-                <x-buttons.nav-link-primary-button href="{{ route('users.create') }}">Criar novo usuário</x-buttons.nav-link-primary-button>
+                <x-buttons.nav-link-primary-button href="{{ route('users.create') }}">
+                    Criar novo usuário
+                </x-buttons.nav-link-primary-button>
             @endcan
         </x-header>
     </x-slot>
@@ -25,7 +27,7 @@
                     <x-table.td>{{ $user->role->name }}</x-table.td>
                     <x-table.last-td>
                         @can('update', user())
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <a href="{{ route('users.edit', $user) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                 Editar
                             </a>
                         @endcan

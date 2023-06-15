@@ -11,7 +11,7 @@ it('should be able to render the user create page', function () {
 
     actingAs($admin);
 
-    get(route('users.create'))->assertOk();
+    get(route('users.create'))->assertSuccessful();
 });
 
 it('should be able to a admin create a user', function () {

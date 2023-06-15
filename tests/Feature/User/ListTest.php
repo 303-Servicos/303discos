@@ -11,7 +11,7 @@ it('should render the user list page', function () {
 
     actingAs($user);
 
-    get(route('users.index'))->assertOk();
+    get(route('users.index'))->assertSuccessful();
 });
 
 it('should list all the users', function () {

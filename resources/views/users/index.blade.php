@@ -50,7 +50,9 @@
                             @endcan
                         @else
                             @can('activate-user', $user)
-                                <x-nav-link.green text="Ativar" :href="route('users.edit', $user)"/>
+                                <x-form :action="route('users.activate', $user)" put>
+                                    <x-buttons.nav-link-green text="Ativar"/>
+                                </x-form>
                             @else
                                 <x-nav-link.green-disabled text="Ativar"/>
                             @endcan

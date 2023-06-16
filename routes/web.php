@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\{ProfileController, UserController};
-use App\Models\User;
+use App\Http\Controllers\{ProfileController, User, UserController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (app()->isLocal()) {
-        if (User::find(1)) {
+        if (App\Models\User::find(1)) {
             auth()->loginUsingId(1);
 
             return view('dashboard');
@@ -22,6 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::resource('users', UserController::class)->except(['show']);
+    Route::put('/users/{user}/activate', User\ActivateController::class)->name('users.activate');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

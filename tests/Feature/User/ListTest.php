@@ -38,7 +38,7 @@ test('test user list returns paginated data correctly', function () {
 
     $pagination   = config('app.pagination_per_page');
     $userToCreate = $pagination + 1;
-    $users        = User::factory()->count($userToCreate)->create();
+    $users        = User::factory($userToCreate)->create();
     $admin        = User::factory()->create(['role_id' => Role::ADMIN]);
 
     actingAs($admin);

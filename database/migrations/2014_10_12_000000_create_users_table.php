@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +17,7 @@ return new class () extends Migration {
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable()->default(now());
             $table->string('password');
-            $table->foreignId('role_id')->default(2)->constrained('roles');
+            $table->foreignId('role_id')->default(Role::USER)->constrained('roles');
             $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps();

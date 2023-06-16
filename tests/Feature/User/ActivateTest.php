@@ -5,6 +5,12 @@ use Database\Seeders\RoleSeeder;
 
 use function Pest\Laravel\{actingAs, assertDatabaseMissing, post, put};
 
+test('only authenticated users can activate a user', function () {
+    $this->seed(RoleSeeder::class);
+    $user = User::factory()->create();
+    put(route('users.activate', $user))->assertRedirect('login');
+});
+
 it('should be able to a admin activate a user', function () {
     $this->seed(RoleSeeder::class);
     $admin = User::factory()->create(['role_id' => Role::ADMIN]);

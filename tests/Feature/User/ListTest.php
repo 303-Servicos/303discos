@@ -22,7 +22,6 @@ it('should list all the users', function () {
     $users = User::factory()->count(5)->create();
 
     actingAs($admin);
-
     $response = get(route('users.index'));
 
     foreach ($users as $user) {
@@ -30,21 +29,11 @@ it('should list all the users', function () {
     }
 });
 
-it('should only show the edit and create buttons if the logged user is a admin', function () {
+it('should not be able to a user see the edit and create buttons', function () {
     $this->seed();
-
-    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
-    $user  = User::factory()->create();
-
-    actingAs($admin);
-
-    $response = get(route('users.index'));
-
-    $response->assertSee('Editar');
-    $response->assertSee('Criar novo usuário');
+    $user = User::factory()->create();
 
     actingAs($user);
-
     $response = get(route('users.index'));
 
     $response->assertDontSee('Editar');

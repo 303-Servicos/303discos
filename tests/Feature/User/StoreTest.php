@@ -1,0 +1,60 @@
+<?php
+
+use App\Models\{Role, User};
+
+use function Pest\Laravel\{actingAs, assertDatabaseHas, assertDatabaseMissing, post};
+
+test('only authenticated users can create a new user', function () {
+    post(route('users.store'), [
+        'name'                  => 'Test User',
+        'email'                 => 'test@example.com',
+        'password'              => 'password',
+        'password_confirmation' => 'password',
+        'role_id'               => Role::USER,
+    ])->assertRedirect('login');
+});
+
+it('should be able to a admin create a user', function () {
+    $this->seed();
+
+    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
+
+    actingAs($admin);
+
+    post(route('users.store'), [
+        '_token'                => csrf_token(),
+        'name'                  => 'Test User',
+        'email'                 => 'test@example.com',
+        'password'              => 'password',
+        'password_confirmation' => 'password',
+        'role_id'               => Role::USER,
+    ])->assertRedirect();
+
+    assertDatabaseHas('users', [
+        'name'    => 'Test User',
+        'role_id' => Role::USER,
+    ]);
+});
+
+it('should not be able to a user create another user', function () {
+    $this->seed();
+
+    $user = User::factory()->create();
+
+    actingAs($user);
+
+    $request = post(route('users.store'), [
+        'name'                  => 'Test User',
+        'email'                 => 'test@example.com',
+        'password'              => 'password',
+        'password_confirmation' => 'password',
+        'role_id'               => Role::USER,
+    ]);
+
+    $request->assertForbidden();
+
+    assertDatabaseMissing('users', [
+        'name'    => 'Test User',
+        'role_id' => Role::USER,
+    ]);
+});

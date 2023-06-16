@@ -17,6 +17,8 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory;
     use Notifiable;
 
+    protected $perPage = 10;
+
     protected $fillable = [
         'name',
         'email',

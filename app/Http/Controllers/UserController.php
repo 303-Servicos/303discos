@@ -12,7 +12,7 @@ class UserController extends Controller
     public function index(): View
     {
         return view('users.index', [
-            'users' => User::with('role')->paginate(),
+            'users' => User::with('role')->get(),
         ]);
     }
 

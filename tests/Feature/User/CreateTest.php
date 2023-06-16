@@ -22,6 +22,7 @@ it('should be able to a admin create a user', function () {
     actingAs($admin);
 
     post(route('users.store'), [
+        '_token'                => csrf_token(),
         'name'                  => 'Test User',
         'email'                 => 'test@example.com',
         'password'              => 'password',
@@ -31,7 +32,7 @@ it('should be able to a admin create a user', function () {
 
     assertDatabaseHas('users', [
         'name'    => 'Test User',
-        'role_id' => 2,
+        'role_id' => Role::USER,
     ]);
 });
 
@@ -54,7 +55,7 @@ it('should not be able to a user create another user', function () {
 
     assertDatabaseMissing('users', [
         'name'    => 'Test User',
-        'role_id' => 1,
+        'role_id' => Role::USER,
     ]);
 });
 

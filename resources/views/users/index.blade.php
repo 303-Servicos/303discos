@@ -74,5 +74,6 @@
             @endforeach
             </tbody>
         </x-table>
+        {{ $users->links() }}
     </x-container>
 </x-app-layout>

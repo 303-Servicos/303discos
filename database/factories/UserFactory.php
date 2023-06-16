@@ -17,7 +17,6 @@ class UserFactory extends Factory
             'password'          => 'password', // password
             'remember_token'    => Str::random(10),
             'role_id'           => Arr::random([Role::MANAGER, Role::USER]),
-            'is_active'         => Arr::random([true, false]),
         ];
     }
 

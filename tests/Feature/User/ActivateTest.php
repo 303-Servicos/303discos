@@ -50,7 +50,7 @@ it('should be able to a manager activate a user', function () {
 it('should not be able to a user activate another user', function () {
     $this->seed(RoleSeeder::class);
     $user  = User::factory()->create();
-    $user2 = User::factory()->create(['name' => 'Test User', 'is_active' => false]);
+    $user2 = User::factory()->create();
 
     actingAs($user);
     put(route('users.activate', $user2))->assertForbidden();

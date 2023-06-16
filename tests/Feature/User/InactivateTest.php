@@ -46,3 +46,12 @@ it('should be able to a manager inactivate a user', function () {
         'is_active' => true,
     ]);
 });
+
+it('should not be able to a user inactivate another user', function () {
+    $this->seed(RoleSeeder::class);
+    $user  = User::factory()->create();
+    $user2 = User::factory()->create();
+
+    actingAs($user);
+    put(route('users.inactivate', $user2))->assertForbidden();
+});

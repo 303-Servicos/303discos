@@ -44,7 +44,9 @@
 
                         @if($user->is_active)
                             @can('inactivate-user', $user)
-                                <x-nav-link.yellow text="Inativar" :href="route('users.edit', $user)"/>
+                                <x-form :action="route('users.inactivate', $user)" put>
+                                    <x-buttons.nav-link-yellow text="Inativar"/>
+                                </x-form>
                             @else
                                 <x-nav-link.yellow-disabled text="Inativar"/>
                             @endcan

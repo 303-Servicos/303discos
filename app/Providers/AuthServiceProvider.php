@@ -23,8 +23,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('activate-user', fn ($user, $model) => $user->role_id == Role::ADMIN);
-        Gate::define('inactivate-user', fn ($user, $model) => $user->role_id == Role::ADMIN && $model->id != $user->id);
+        Gate::define('activate-user', fn ($user, $model) => in_array($user->role_id, [Role::ADMIN, Role::MANAGER]));
+        Gate::define('inactivate-user', fn ($user, $model) => in_array($user->role_id, [Role::ADMIN, Role::MANAGER]) && $model->id != $user->id && $model->role_id != Role::ADMIN);
         Gate::define('update-user-role', fn ($user, $model) => $user->role_id == Role::ADMIN && $model->id != $user->id);
     }
 }

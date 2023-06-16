@@ -28,7 +28,13 @@
                     <x-table.first-td>{{ $user->name }}</x-table.first-td>
                     <x-table.td>{{ $user->email }}</x-table.td>
                     <x-table.td>{{ $user->role->name }}</x-table.td>
-                    <x-table.td>{{ $user->is_active ? 'Ativo' : 'Inativo' }}</x-table.td>
+                    <x-table.td>
+                        @if($user->is_active)
+                            <x-badges.green text="Ativo" />
+                        @else
+                            <x-badges.red text="Inativo" />
+                        @endif
+                    </x-table.td>
                     <x-table.action-td>
                         @can('update', $user)
                             <a href="{{ route('users.edit', $user) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">

@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Illuminate\Support\{Arr, Str};
 
 class UserFactory extends Factory
 {
@@ -15,6 +16,8 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password'          => 'password', // password
             'remember_token'    => Str::random(10),
+            'role_id'           => Arr::random([Role::MANAGER, Role::USER]),
+            'is_active'         => Arr::random([true, false]),
         ];
     }
 

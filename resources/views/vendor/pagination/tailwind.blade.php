@@ -3,7 +3,7 @@
         <nav aria-label="Page navigation">
             <!-- Help text -->
             <div class="text-sm text-gray-700 dark:text-gray-400">
-                {!! __('Showing') !!} <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->firstItem() }}</span> {!! __('to') !!} <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->lastItem() }}</span> {!! __('of') !!} <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->total() }}</span> {!! __('results') !!}
+                {!! __('Mostrando') !!} <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->firstItem() }}</span> {!! __('até') !!} <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->lastItem() }}</span> {!! __('de') !!} <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->total() }}</span> {!! __('resultados') !!}
             </div>
             <ul class="inline-flex items-center -space-x-px mt-2">
                 <li>

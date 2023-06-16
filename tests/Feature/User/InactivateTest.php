@@ -29,3 +29,20 @@ it('should be able to a admin ianctivate a user', function () {
         'is_active' => true,
     ]);
 });
+
+it('should be able to a manager inactivate a user', function () {
+    $this->seed(RoleSeeder::class);
+    $manager = User::factory()->create(['role_id' => Role::MANAGER]);
+    $user    = User::factory()->create(['name' => 'Test User']);
+
+    actingAs($manager);
+
+    put(route('users.inactivate', $user))->assertRedirect(route('users.index'));
+
+    $user->refresh();
+
+    assertDatabaseMissing('users', [
+        'name'      => 'Test User',
+        'is_active' => true,
+    ]);
+});

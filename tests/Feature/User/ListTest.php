@@ -14,7 +14,6 @@ it('should render the user list page', function () {
     $user = User::factory()->create();
 
     actingAs($user);
-
     get(route('users.index'))->assertSuccessful();
 });
 
@@ -36,13 +35,18 @@ test('test user list returns paginated data correctly', function () {
     $response->assertSee('Next');
 });
 
-it('should not be able to a user see the edit and create buttons', function () {
-    $this->seed();
+it('should not be able to a manager see the create button', function () {
+    $this->seed(RoleSeeder::class);
+    $user = User::factory()->create(['role_id' => Role::MANAGER]);
+
+    actingAs($user);
+    get(route('users.index'))->assertDontSee('Criar novo usuário');
+});
+
+it('should not be able to a user see the create button', function () {
+    $this->seed(RoleSeeder::class);
     $user = User::factory()->create();
 
     actingAs($user);
-    $response = get(route('users.index'));
-
-    $response->assertDontSee('Editar');
-    $response->assertDontSee('Criar novo usuário');
+    get(route('users.index'))->assertDontSee('Criar novo usuário');
 });

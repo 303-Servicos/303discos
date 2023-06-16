@@ -30,10 +30,14 @@
                     <x-table.td>{{ $user->role->name }}</x-table.td>
                     <x-table.td>{{ $user->is_active ? 'Ativo' : 'Inativo' }}</x-table.td>
                     <x-table.action-td>
-                        @can('update', user())
+                        @can('update', $user)
                             <a href="{{ route('users.edit', $user) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                 Editar
                             </a>
+                        @else
+                            <x-buttons.primary disabled class="font-medium text-blue-600/25 dark:text-blue-500/25 hover:underline">
+                                Editar
+                            </x-buttons.primary>
                         @endcan
 
                         @if($user->is_active)

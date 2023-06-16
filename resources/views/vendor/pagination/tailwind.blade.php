@@ -1,12 +1,11 @@
 @if ($paginator->hasPages())
-    <div class="flex flex-col items-center mt-2">
+    <div class="flex flex-col text-center items-center mt-2">
         <nav aria-label="Page navigation">
             <!-- Help text -->
-            <span class="text-sm text-gray-700 dark:text-gray-400">
+            <div class="text-sm text-gray-700 dark:text-gray-400">
                 {!! __('Showing') !!} <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->firstItem() }}</span> {!! __('to') !!} <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->lastItem() }}</span> {!! __('of') !!} <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->total() }}</span> {!! __('results') !!}
-            </span>
-            <br>
-            <ul class="inline-flex items-center -space-x-px">
+            </div>
+            <ul class="inline-flex items-center -space-x-px mt-2">
                 <li>
                     @if ($paginator->onFirstPage())
                         <span class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">

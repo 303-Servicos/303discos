@@ -42,13 +42,11 @@ it('should not be able to a manager edit the role of a user', function () {
     get(route('users.edit', $user))->assertDontSee('Tipo de usuário');
 });
 
-it('should be able to a user only edit his own user', function () {
+it('should not be able to a user acess the edir user page', function () {
     $this->seed(RoleSeeder::class);
-    $user  = User::factory()->create(['role_id' => Role::USER]);
-    $user2 = User::factory()->create(['role_id' => Role::USER]);
+    $user = User::factory()->create(['role_id' => Role::USER]);
 
     actingAs($user);
 
-    get(route('users.edit', $user))->assertSuccessful();
-    get(route('users.edit', $user2))->assertForbidden();
+    get(route('users.edit', $user))->assertForbidden();
 });

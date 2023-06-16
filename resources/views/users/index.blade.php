@@ -2,9 +2,9 @@
     <x-slot name="header">
         <x-header title="{{ __('Usuários') }}">
             @can('create', \App\Models\User::class)
-                <x-buttons.nav-link-primary-button href="{{ route('users.create') }}">
+                <x-buttons.nav-link-primary href="{{ route('users.create') }}">
                     Criar novo usuário
-                </x-buttons.nav-link-primary-button>
+                </x-buttons.nav-link-primary>
             @endcan
         </x-header>
     </x-slot>
@@ -30,54 +30,38 @@
                     <x-table.td>{{ $user->role->name }}</x-table.td>
                     <x-table.td>
                         @if($user->is_active)
-                            <x-badges.green text="Ativo" />
+                            <x-badges.green text="Ativo"/>
                         @else
-                            <x-badges.red text="Inativo" />
+                            <x-badges.red text="Inativo"/>
                         @endif
                     </x-table.td>
                     <x-table.action-td>
                         @can('update', $user)
-                            <a href="{{ route('users.edit', $user) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                Editar
-                            </a>
+                            <x-nav-link.blue text="Editar" :href="route('users.edit', $user)"/>
                         @else
-                            <x-buttons.primary disabled class="font-medium text-blue-600/25 dark:text-blue-500/25 hover:underline">
-                                Editar
-                            </x-buttons.primary>
+                            <x-nav-link.blue-disabled text="Editar"/>
                         @endcan
 
                         @if($user->is_active)
                             @can('inactivate-user', $user)
-                                <a href="{{ route('users.edit', $user) }}" class="font-medium text-yellow-500 dark:text-yellow-400 hover:underline">
-                                    Inativar
-                                </a>
+                                <x-nav-link.yellow text="Inativar" :href="route('users.edit', $user)"/>
                             @else
-                                <x-buttons.primary disabled class="font-medium text-yellow-500/25 dark:text-yellow-500/25">
-                                    Inativar
-                                </x-buttons.primary>
+                                <x-nav-link.yellow-disabled text="Inativar"/>
                             @endcan
                         @else
                             @can('activate-user', $user)
-                                <a href="{{ route('users.edit', $user) }}" class="font-medium text-green-500 dark:text-green-500 hover:underline">
-                                    Ativar
-                                </a>
+                                <x-nav-link.green text="Ativar" :href="route('users.edit', $user)"/>
                             @else
-                                <x-buttons.primary disabled class="font-medium text-green-500/25 dark:text-green-500/25">
-                                    Ativar
-                                </x-buttons.primary>
+                                <x-nav-link.green-disabled text="Ativar"/>
                             @endcan
                         @endif
 
                         @can('delete', $user)
                             <x-form delete :action="route('users.destroy', $user)">
-                                <x-buttons.primary class="font-medium text-red-500 dark:text-red-500 hover:underline">
-                                    Excluir
-                                </x-buttons.primary>
+                                <x-buttons.nav-link-red text="Excluir"/>
                             </x-form>
                         @else
-                            <x-buttons.primary disabled class="font-medium text-red-500/25 dark:text-red-500/25">
-                                Excluir
-                            </x-buttons.primary>
+                            <x-nav-link.red-disabled text="Excluir"/>
                         @endcan
                     </x-table.action-td>
                 </x-table.tr>

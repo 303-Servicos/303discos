@@ -62,19 +62,13 @@ it('should be able to a manager update a user', function () {
 
 });
 
-it('should be able to a user only update his own user', function () {
+it('should not be able to a user upgradre a user', function () {
     $this->seed(RoleSeeder::class);
-    $user  = User::factory()->create(['role_id' => Role::USER]);
-    $user2 = User::factory()->create(['role_id' => Role::USER]);
+    $user = User::factory()->create(['role_id' => Role::USER]);
 
     actingAs($user);
 
     put(route('users.update', $user), [
-        'name'  => 'New Name',
-        'email' => $user->email,
-    ])->assertRedirect(route('users.index'));
-
-    put(route('users.update', $user2), [
         'name'  => 'New Name',
         'email' => 'email@teste.com',
     ])->assertForbidden();

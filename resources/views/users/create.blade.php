@@ -1,9 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
         <x-header title="{{ __('Criar novo usuário') }}">
-            <x-buttons.nav-link-secondary-button href="{{ route('users.index') }}">
+            <x-buttons.nav-link-secondary href="{{ route('users.index') }}">
                 Voltar
-            </x-buttons.nav-link-secondary-button>
+            </x-buttons.nav-link-secondary>
         </x-header>
     </x-slot>
 

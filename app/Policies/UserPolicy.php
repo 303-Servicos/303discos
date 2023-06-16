@@ -11,7 +11,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return in_array($user->role_id, [Role::ADMIN, Role::MANAGER]);
     }
 
     /**
@@ -19,7 +19,7 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        return $user->role_id == Role::ADMIN;
+        return true;
     }
 
     /**

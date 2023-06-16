@@ -11,6 +11,8 @@ class UserController extends Controller
 {
     public function index(): View
     {
+        $this->authorize('viewAny', User::class);
+
         return view('users.index', [
             'users' => User::with('role')->paginate(),
         ]);

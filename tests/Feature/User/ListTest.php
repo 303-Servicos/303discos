@@ -9,23 +9,39 @@ test('only authenticated users can access the user clist', function () {
     get(route('users.index'))->assertRedirect('login');
 });
 
-it('should render the user list page', function () {
+it('should be able to a admin access the user list page', function () {
     $this->seed(RoleSeeder::class);
-    $user = User::factory()->create();
+    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
+
+    actingAs($admin);
+    get(route('users.index'))->assertSuccessful();
+});
+
+it('should be able to a manager access the user list page', function () {
+    $this->seed(RoleSeeder::class);
+    $manager = User::factory()->create(['role_id' => Role::MANAGER]);
+
+    actingAs($manager);
+    get(route('users.index'))->assertSuccessful();
+});
+
+it('should not be able to a user access the user list page', function () {
+    $this->seed(RoleSeeder::class);
+    $user = User::factory()->create(['role_id' => Role::USER]);
 
     actingAs($user);
-    get(route('users.index'))->assertSuccessful();
+    get(route('users.index'))->assertForbidden();
 });
 
 test('test user list returns paginated data correctly', function () {
     $this->seed(RoleSeeder::class);
 
     $pagination   = config('app.pagination_per_page');
-    $userToCreate = $pagination + 2;
+    $userToCreate = $pagination + 1;
     $users        = User::factory()->count($userToCreate)->create();
-    $user         = User::find(1);
+    $admin        = User::factory()->create(['role_id' => Role::ADMIN]);
 
-    actingAs($user);
+    actingAs($admin);
     $response = get(route('users.index'));
 
     for ($i = 0; $i < $pagination; $i++) {

@@ -15,10 +15,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-
-                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users*')">
-                        {{ __('Usuários') }}
-                    </x-nav-link>
+                    @can('viewAny', \App\Models\Role::class)
+                        <x-nav-link :href="route('roles.index')" :active="request()->routeIs('roles*')">
+                            {{ __('Tipos de usuário') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\{Role, User};
+use Database\Seeders\RoleSeeder;
 
 use function Pest\Laravel\{actingAs, get};
 
@@ -15,7 +16,7 @@ it('should render the user list page', function () {
 });
 
 it('should list all the users', function () {
-    $this->seed();
+    $this->seed(RoleSeeder::class);
 
     $admin = User::factory()->create(['role_id' => Role::ADMIN]);
     $users = User::factory()->count(5)->create();

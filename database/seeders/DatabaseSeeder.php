@@ -18,5 +18,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('chochi'),
             'role_id'  => Role::ADMIN,
         ]);
+
+        User::factory()->count(5)->create();
     }
 }

@@ -19,7 +19,7 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        return true;
+        return $user->role_id == Role::ADMIN;
     }
 
     /**
@@ -43,7 +43,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return true;
+        return $user->role_id == Role::ADMIN && $model->id != $user->id;
     }
 
     /**

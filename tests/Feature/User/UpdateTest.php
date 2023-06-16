@@ -2,7 +2,7 @@
 
 use App\Models\{Role, User};
 
-use function Pest\Laravel\{actingAs, assertDatabaseHas, assertDatabaseMissing, get, post};
+use function Pest\Laravel\{actingAs, assertDatabaseHas, assertDatabaseMissing, get, post, put};
 
 it('should be able to a admin update a user', function () {
     $this->seed();
@@ -12,10 +12,9 @@ it('should be able to a admin update a user', function () {
 
     actingAs($admin);
 
-    post(route('users.update', $user), [
-        'name'    => 'New Name',
-        'email'   => $user->email,
-        'role_id' => 1,
+    put(route('users.update', $user), [
+        'name'  => 'New Name',
+        'email' => $user->email,
     ])->assertRedirect(route('users.index'));
 
     $user->refresh();
@@ -28,5 +27,25 @@ it('should be able to a admin update a user', function () {
     assertDatabaseHas('users', [
         'name' => 'New Name',
     ]);
+
+});
+
+it('should be able to only admin update a user', function () {
+    $this->seed();
+
+    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
+    $user  = User::factory()->create(['role_id' => Role::USER]);
+
+    actingAs($admin);
+    put(route('users.update', $user), [
+        'name'  => 'New Name',
+        'email' => $user->email,
+    ])->assertRedirect(route('users.index'));
+
+    actingAs($user);
+    put(route('users.update', $user), [
+        'name'  => 'New Name',
+        'email' => $user->email,
+    ])->assertForbidden();
 
 });

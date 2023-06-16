@@ -16,6 +16,7 @@
                     <x-table.th>Nome</x-table.th>
                     <x-table.th>E-mail</x-table.th>
                     <x-table.th>Tipo de usuário</x-table.th>
+                    <x-table.th>Status</x-table.th>
                     <x-table.th/>
                 </tr>
             </x-table.thead>
@@ -25,11 +26,19 @@
                     <x-table.first-td>{{ $user->name }}</x-table.first-td>
                     <x-table.td>{{ $user->email }}</x-table.td>
                     <x-table.td>{{ $user->role->name }}</x-table.td>
+                    <x-table.td>{{ $user->is_active }}</x-table.td>
                     <x-table.last-td>
                         @can('update', user())
                             <a href="{{ route('users.edit', $user) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                 Editar
                             </a>
+                        @endcan
+                        @can('delete', $user)
+                            <x-form delete :action="route('users.destroy', $user)">
+                                <x-buttons.primary class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                    Excluir
+                                </x-buttons.primary>
+                            </x-form>
                         @endcan
                     </x-table.last-td>
                 </x-table.tr>

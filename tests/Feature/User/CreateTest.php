@@ -29,7 +29,6 @@ it('should be able to a admin create a user', function () {
         'role_id'               => Role::USER,
     ])->assertRedirect();
 
-    assertDatabaseCount('users', 3);
     assertDatabaseHas('users', [
         'name'    => 'Test User',
         'role_id' => 2,
@@ -53,7 +52,6 @@ it('should not be able to a user create another user', function () {
 
     $request->assertForbidden();
 
-    assertDatabaseCount('users', 2);
     assertDatabaseMissing('users', [
         'name'    => 'Test User',
         'role_id' => 1,

@@ -18,9 +18,7 @@ it('should be able to a admin destroy a user', function () {
     $user  = User::factory()->create();
 
     actingAs($admin);
-
     delete(route('users.destroy', $user))->assertRedirect(route('users.index'));
-
     assertDatabaseMissing('users', [
         'id' => $user->id,
     ]);

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     if (app()->isLocal()) {
         if (User::find(1)) {
-            auth()->loginUsingId(2);
+            auth()->loginUsingId(1);
 
             return view('dashboard');
         }

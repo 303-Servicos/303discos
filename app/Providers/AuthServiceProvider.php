@@ -25,6 +25,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         Gate::define('activate-user', fn ($user, $model) => $user->role_id == Role::ADMIN);
         Gate::define('inactivate-user', fn ($user, $model) => $user->role_id == Role::ADMIN && $model->id != $user->id);
-
+        Gate::define('update-user-role', fn ($user, $model) => $user->role_id == Role::ADMIN && $model->id != $user->id);
     }
 }

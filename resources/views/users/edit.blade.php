@@ -12,9 +12,9 @@
             <x-form.input label="Nome" name="name" placeholder="Paulo Cavalcanti" :value="$user->name"/>
             <x-form.input label="Email" name="email" type="email" placeholder="teste@email.com.br" :value="$user->email"/>
 
-            @if($user->id != user()->id)
+            @can('update-user-role', $user)
                 <x-form.select label="Tipo de usuário" name="role_id" :options="$roles" placeholder="Selecione uma opção" :value="$user->role_id"/>
-            @endif
+            @endcan
 
             <x-buttons.primary>Salvar</x-buttons.primary>
         </x-form>

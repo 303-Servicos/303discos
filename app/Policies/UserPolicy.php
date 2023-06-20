@@ -35,7 +35,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return in_array($user->role_id, [Role::ADMIN, Role::MANAGER]) && $model->id != $user->id;
+        return in_array($user->role_id, [Role::ADMIN, Role::MANAGER]) && $model->id != $user->id && $model->deleted_at == null && $model->role_id != Role::ADMIN;
     }
 
     /**
@@ -43,7 +43,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model): bool
     {
-        return in_array($user->role_id, [Role::ADMIN, Role::MANAGER]) && $model->deleted_at != null;
+        return in_array($user->role_id, [Role::ADMIN, Role::MANAGER]) && $model->deleted_at != null && $model->role_id != Role::ADMIN;
     }
 
     /**

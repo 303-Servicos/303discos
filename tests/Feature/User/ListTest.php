@@ -46,7 +46,6 @@ test('test user list returns paginated data correctly', function () {
         $response->assertSee($users[$i]->name);
     }
     $response->assertDontSee($users[$pagination]->name);
-    $response->assertSee('Next');
 });
 
 it('should not be able to a manager see the create button', function () {

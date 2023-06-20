@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Database\Seeders\RoleSeeder;
 
 test('login screen can be rendered', function () {
     $response = $this->get('/login');
@@ -10,6 +11,7 @@ test('login screen can be rendered', function () {
 });
 
 test('users can authenticate using the login screen', function () {
+    $this->seed(RoleSeeder::class);
     $user = User::factory()->create();
 
     $response = $this->post('/login', [
@@ -22,6 +24,7 @@ test('users can authenticate using the login screen', function () {
 });
 
 test('users can not authenticate with invalid password', function () {
+    $this->seed(RoleSeeder::class);
     $user = User::factory()->create();
 
     $this->post('/login', [

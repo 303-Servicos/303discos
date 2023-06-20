@@ -33,8 +33,7 @@ it('should not be able to a user access the user list page', function () {
 
 test('test user list returns paginated data correctly', function () {
     $this->seed(RoleSeeder::class);
-
-    $pagination    = config('app.pagination_per_page');
+    $pagination    = 10;
     $usersToCreate = $pagination + 1;
     $users         = User::factory($usersToCreate)->create();
     $admin         = User::factory()->create(['role_id' => Role::ADMIN]);

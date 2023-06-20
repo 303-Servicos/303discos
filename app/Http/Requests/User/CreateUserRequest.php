@@ -15,7 +15,7 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'name'     => ['required', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'email'    => ['required', 'string', 'email:filter', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role_id'  => ['required', 'integer'],
         ];
@@ -30,6 +30,7 @@ class CreateUserRequest extends FormRequest
             'required' => 'O campo ":attribute" é obrigatório!',
             'max'      => 'O campo ":attribute" deve ter no máximo :max caracteres!',
             'unique'   => 'O campo ":attribute" já está sendo utilizado!',
+            'email'    => 'O campo ":attribute" deve ser um e-mail válido!',
         ];
     }
 

@@ -28,6 +28,7 @@ class UpdateUserRequest extends FormRequest
             'required' => 'O campo ":attribute" é obrigatório!',
             'max'      => 'O campo ":attribute" deve ter no máximo :max caracteres!',
             'unique'   => 'O campo ":attribute" já está sendo utilizado!',
+            'email'    => 'O campo ":attribute" deve ser um e-mail válido!',
         ];
     }
 

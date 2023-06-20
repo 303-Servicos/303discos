@@ -2,10 +2,12 @@
 
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\{Event, URL};
 
 test('email verification screen can be rendered', function () {
+    $this->seed(RoleSeeder::class);
     $user = User::factory()->create([
         'email_verified_at' => null,
     ]);
@@ -16,6 +18,7 @@ test('email verification screen can be rendered', function () {
 });
 
 test('email can be verified', function () {
+    $this->seed(RoleSeeder::class);
     $user = User::factory()->create([
         'email_verified_at' => null,
     ]);
@@ -36,6 +39,7 @@ test('email can be verified', function () {
 });
 
 test('email is not verified with invalid hash', function () {
+    $this->seed(RoleSeeder::class);
     $user = User::factory()->create([
         'email_verified_at' => null,
     ]);

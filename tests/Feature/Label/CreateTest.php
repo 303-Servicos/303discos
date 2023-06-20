@@ -25,10 +25,10 @@ it('should be able to a manager access the label create page', function () {
     $this->get(route('labels.create'))->assertSuccessful();
 });
 
-//it('should not be able to a user access the label create page', function () {
-//    $this->seed(RoleSeeder::class);
-//    $user = User::factory()->create(['role_id' => Role::USER]);
-//
-//    $this->actingAs($user);
-//    $this->get(route('users.create'))->assertForbidden();
-//});
+it('should not be able to a user access the label create page', function () {
+    $this->seed(RoleSeeder::class);
+    $user = User::factory()->create(['role_id' => Role::USER]);
+
+    $this->actingAs($user);
+    $this->get(route('users.create'))->assertForbidden();
+});

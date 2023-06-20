@@ -30,7 +30,7 @@ class LabelPolicy
     {
         return $user->isAdmin() || $user->isManager()
             ? Response::allow()
-            : Response::deny('You do not own this label.');
+            : Response::deny('Você não pode criar um selo.');
     }
 
     /**

@@ -27,7 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     #endregion
 
     #region Labels
-    Route::get('/labels', [LabelController::class, 'create'])->name('labels.create');
+    Route::resource('labels', LabelController::class)->only(['index', 'create']);
     #endregion
 
     #region Profile

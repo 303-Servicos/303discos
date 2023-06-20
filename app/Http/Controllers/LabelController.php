@@ -16,6 +16,8 @@ class LabelController extends Controller
 
     public function create(): View
     {
+        $this->authorize('create', Label::class);
+
         return view('labels.create');
     }
 }

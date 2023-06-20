@@ -7,11 +7,6 @@ use Illuminate\Auth\Access\Response;
 
 class LabelPolicy
 {
-    public function viewAny(User $user): bool
-    {
-        return auth()->check();
-    }
-
     //    public function view(User $user, Label $label): bool
     //    {
     //        //
@@ -21,7 +16,7 @@ class LabelPolicy
     {
         return $user->isAdmin() || $user->isManager()
             ? Response::allow()
-            : Response::deny('Você não pode criar um selo.');
+            : Response::deny('Você não pode criar um selo');
     }
 
 //    public function update(User $user, Label $label): bool

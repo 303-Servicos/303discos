@@ -38,5 +38,5 @@ it('should not be able to a user see the create button', function () {
     $user = User::factory()->create();
 
     actingAs($user);
-    get(route('labels.index'))->assertDontSee('Criar novo label');
+    get(route('labels.index'))->assertDontSee('Criar novo selo');
 });

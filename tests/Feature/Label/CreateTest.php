@@ -30,5 +30,5 @@ it('should not be able to a user access the label create page', function () {
     $user = User::factory()->create(['role_id' => Role::USER]);
 
     actingAs($user);
-    get(route('users.create'))->assertForbidden();
+    get(route('labels.create'))->assertForbidden();
 });

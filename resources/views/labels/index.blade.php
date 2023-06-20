@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-header title="{{ __('Labels') }}">
+        <x-header title="{{ __('Selos') }}">
             @can('create', \App\Models\Label::class)
-                <x-buttons.nav-link-primary text="Criar novo label" href="{{ route('labels.create') }}"/>
+                <x-buttons.nav-link-primary text="Criar novo selo" href="{{ route('labels.create') }}"/>
             @endcan
         </x-header>
     </x-slot>

@@ -21,7 +21,7 @@
                         </x-nav-link>
                     @endcan
                     <x-nav-link :href="route('labels.index')" :active="request()->routeIs('labels*')">
-                        {{ __('Labels') }}
+                        {{ __('Selos') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                 </x-responsive-nav-link>
             @endcan
             <x-responsive-nav-link :href="route('labels.index')" :active="request()->routeIs('labels*')">
-                {{ __('Labels') }}
+                {{ __('Selos') }}
             </x-responsive-nav-link>
         </div>
 

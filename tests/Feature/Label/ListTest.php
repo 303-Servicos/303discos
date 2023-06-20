@@ -32,19 +32,11 @@ test('test label list returns paginated data correctly', function () {
     }
     $response->assertDontSee($labels[$pagination]->name);
 });
-//
-//it('should not be able to a manager see the create button', function () {
-//    seed(RoleSeeder::class);
-//    $user = User::factory()->create(['role_id' => Role::MANAGER]);
-//
-//    actingAs($user);
-//    get(route('users.index'))->assertDontSee('Criar novo usuário');
-//});
-//
-//it('should not be able to a user see the create button', function () {
-//    seed(RoleSeeder::class);
-//    $user = User::factory()->create();
-//
-//    actingAs($user);
-//    get(route('users.index'))->assertDontSee('Criar novo usuário');
-//});
+
+it('should not be able to a user see the create button', function () {
+    seed(RoleSeeder::class);
+    $user = User::factory()->create();
+
+    actingAs($user);
+    get(route('labels.index'))->assertDontSee('Criar novo label');
+});

@@ -26,13 +26,13 @@ class CreateLabelRequest extends FormRequest
                 Rule::unique("labels", 'name')->ignore($this->route('label')),
             ],
             'logo' => [
-                'sometimes',
+                'nullable',
                 'image',
                 'mimes:jpeg,png,jpg',
                 'max:2048',
             ],
             'discogs' => [
-                'sometimes',
+                'nullable',
                 'string',
                 'max:255',
             ],
@@ -45,10 +45,10 @@ class CreateLabelRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'required' => 'O campo :attribute é obrigatório!',
-            'max'      => 'O campo :attribute deve ter no máximo :max caracteres!',
-            'min'      => 'O campo :attribute deve ter no mínimo :min caracteres!',
-            'unique'   => 'O campo :attribute já está sendo utilizado!',
+            'required' => 'O campo ":attribute" é obrigatório!',
+            'max'      => 'O campo ":attribute" deve ter no máximo :max caracteres!',
+            'min'      => 'O campo ":attribute" deve ter no mínimo :min caracteres!',
+            'unique'   => 'O campo ":attribute" já está sendo utilizado!',
             'image'    => 'O arquivo deve ser uma imagem!',
             'mimes'    => 'O arquivo deve ser do tipo jpeg, png ou jpg!',
             'logo.max' => 'O arquivo deve ter no máximo 2MB!',

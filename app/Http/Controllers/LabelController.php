@@ -12,7 +12,7 @@ class LabelController extends Controller
     public function index(): View
     {
         return view('labels.index', [
-            'labels' => Label::paginate(),
+            'labels' => Label::orderBy('name')->paginate(),
         ]);
     }
 
@@ -27,7 +27,16 @@ class LabelController extends Controller
     {
         $this->authorize('create', Label::class);
 
-        Label::create($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('logo')) {
+
+            $file         = $request->file('logo');
+            $filename     = $data['name'] . '.' . $file->getClientOriginalExtension();
+            $data['logo'] = $file->storeAs('uploads/images/labels', $filename, 'public');
+        }
+
+        Label::create($data);
 
         return to_route('labels.index')->with('success', 'User created successfully.');
     }

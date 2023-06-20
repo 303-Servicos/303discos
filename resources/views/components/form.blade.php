@@ -4,7 +4,7 @@
     'delete' => null,
 ])
 
-<form method="POST" action="{{ $action }}" {{ $attributes }}>
+<form method="POST" action="{{ $action }}" {{ $attributes }} enctype="multipart/form-data">
     @csrf
 
     @if($put)

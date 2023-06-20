@@ -11,7 +11,6 @@
         <x-table>
             <x-table.thead>
                 <tr>
-                    <x-table.th>ID</x-table.th>
                     <x-table.th>Logo</x-table.th>
                     <x-table.th>Nome</x-table.th>
                     <x-table.th>Slug</x-table.th>
@@ -22,11 +21,24 @@
             <tbody>
             @foreach($labels as $label)
                 <x-table.tr>
-                    <x-table.first-td>{{ $label->id }}</x-table.first-td>
-                    <x-table.td>{{ $label->logo }}</x-table.td>
+                    <x-table.td>
+                        @if($label->logo)
+                            <a href="{{ url($label->logo) }}" target="_blank">
+                                <img src="{{ url($label->logo) }}" class="mx-auto" width="90" alt="logo">
+                            </a>
+                        @else
+                            <a href="https://via.placeholder.com/70/" target="_blank">
+                                <img src="https://via.placeholder.com/70/" class="mx-auto" alt="logo">
+                            </a>
+                        @endif
+                    </x-table.td>
                     <x-table.td>{{ $label->name }}</x-table.td>
                     <x-table.td>{{ $label->slug }}</x-table.td>
-                    <x-table.td><x-nav-link.blue text="Discogs" :href="$label->discogs" target="_blank"/></x-table.td>
+                    <x-table.td>
+                        @if($label->discogs)
+                            < x-nav-link.blue text="Discogs" :href="$label->discogs" target="_blank"/>
+                        @endif
+                    </x-table.td>
                     <x-table.action-td>
 
                     </x-table.action-td>

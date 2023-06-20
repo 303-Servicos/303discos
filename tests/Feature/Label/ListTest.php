@@ -19,18 +19,33 @@ it('should be able to a admin access the user list page', function () {
 
 test('test label list returns paginated data correctly', function () {
     seed(RoleSeeder::class);
-    $pagination     = 10;
-    $labelsToCreate = $pagination + 1;
-    $admin          = User::factory()->create(['role_id' => Role::ADMIN]);
-    $labels         = Label::factory($labelsToCreate)->create();
+    $admin   = User::factory()->create(['role_id' => Role::ADMIN]);
+    $label1  = Label::factory()->create(['name' => 'Name Label A']);
+    $label2  = Label::factory()->create(['name' => 'Name Label B']);
+    $label3  = Label::factory()->create(['name' => 'Name Label C']);
+    $label4  = Label::factory()->create(['name' => 'Name Label D']);
+    $label5  = Label::factory()->create(['name' => 'Name Label E']);
+    $label6  = Label::factory()->create(['name' => 'Name Label F']);
+    $label7  = Label::factory()->create(['name' => 'Name Label G']);
+    $label8  = Label::factory()->create(['name' => 'Name Label H']);
+    $label9  = Label::factory()->create(['name' => 'Name Label I']);
+    $label10 = Label::factory()->create(['name' => 'Name Label J']);
+    $label11 = Label::factory()->create(['name' => 'Name Label Z']);
 
     actingAs($admin);
     $response = get(route('labels.index'));
 
-    for ($i = 0; $i < $pagination; $i++) {
-        $response->assertSee($labels[$i]->name);
-    }
-    $response->assertDontSee($labels[$pagination]->name);
+    $response->assertSee($label1->name);
+    $response->assertSee($label2->name);
+    $response->assertSee($label3->name);
+    $response->assertSee($label4->name);
+    $response->assertSee($label5->name);
+    $response->assertSee($label6->name);
+    $response->assertSee($label7->name);
+    $response->assertSee($label8->name);
+    $response->assertSee($label9->name);
+    $response->assertSee($label10->name);
+    $response->assertDontSee($label11->name);
 });
 
 it('should not be able to a user see the create button', function () {

@@ -42,7 +42,7 @@ test('test user list returns paginated data correctly', function () {
     $this->actingAs($admin);
     $response = $this->get(route('users.index'));
 
-    for ($i = 0; $i < 10; $i++) {
+    for ($i = 0; $i < $pagination; $i++) {
         $response->assertSee($users[$i]->name);
     }
     $response->assertDontSee($users[$pagination]->name);

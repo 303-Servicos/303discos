@@ -47,25 +47,20 @@ it('should be able to a manage create a label', function () {
     ]);
 });
 
-//it('should not be able to a label create a label', function () {
-//    seed(RoleSeeder::class);
-//
-//    $label = User::factory()->create();
-//
-//    actingAs($label);
-//
-//    $request = post(route('labels.store'), [
-//        'name'                  => 'Test User',
-//        'email'                 => 'test@example.com',
-//        'password'              => 'password',
-//        'password_confirmation' => 'password',
-//        'role_id'               => Role::USER,
-//    ]);
-//
-//    $request->assertForbidden();
-//
-//    assertDatabaseMissing('labels', [
-//        'name'    => 'Test User',
-//        'role_id' => Role::USER,
-//    ]);
-//});
+it('should not be able to a user create a label', function () {
+    seed(RoleSeeder::class);
+
+    $label = User::factory()->create();
+
+    actingAs($label);
+
+    post(route('labels.store'), [
+        'name'    => 'Test Label',
+        'discogs' => 'www.discogs.com',
+    ])->assertForbidden();
+
+    assertDatabaseMissing('labels', [
+        'name'    => 'Test User',
+        'role_id' => Role::USER,
+    ]);
+});

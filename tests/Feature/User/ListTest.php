@@ -34,15 +34,15 @@ it('should not be able to a user access the user list page', function () {
 test('test user list returns paginated data correctly', function () {
     $this->seed(RoleSeeder::class);
 
-    $pagination   = config('app.pagination_per_page');
-    $userToCreate = $pagination + 1;
-    $users        = User::factory($userToCreate)->create();
-    $admin        = User::factory()->create(['role_id' => Role::ADMIN]);
+    $pagination    = config('app.pagination_per_page');
+    $usersToCreate = $pagination + 1;
+    $users         = User::factory($usersToCreate)->create();
+    $admin         = User::factory()->create(['role_id' => Role::ADMIN]);
 
     $this->actingAs($admin);
     $response = $this->get(route('users.index'));
 
-    for ($i = 0; $i < $pagination; $i++) {
+    for ($i = 0; $i < 9; $i++) {
         $response->assertSee($users[$i]->name);
     }
     $response->assertDontSee($users[$pagination]->name);

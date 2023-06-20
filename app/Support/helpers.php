@@ -10,3 +10,11 @@ function user(): ?User
 
     return null;
 }
+
+/**
+ * @param array<string> $dictionary
+ */
+function generateSlug(string $string, string $language = 'pt_BR', array $dictionary = ['.' => '-']): string
+{
+    return Str::slug($string, language: $language, dictionary: $dictionary);
+}

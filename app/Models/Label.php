@@ -12,4 +12,23 @@ class Label extends Model
     protected $guarded = [];
 
     protected $perPage = 10;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($label) {
+            $label->slug = generateSlug($label->name);
+        });
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }

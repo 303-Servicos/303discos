@@ -27,7 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     #endregion
 
     #region Labels
-    Route::resource('labels', LabelController::class)->only(['index', 'create']);
+    Route::resource('labels', LabelController::class)->only(['index', 'create', 'store']);
     #endregion
 
     #region Profile

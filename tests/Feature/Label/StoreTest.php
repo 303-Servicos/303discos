@@ -15,34 +15,29 @@ test('only authenticated users can create a new label', function () {
     ])->assertRedirect('login');
 });
 
-//it('should be able to a admin create a user', function () {
-//    seed(RoleSeeder::class);
-//    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
-//
-//    actingAs($admin);
-//
-//    post(route('users.store'), [
-//        '_token'                => csrf_token(),
-//        'name'                  => 'Test User',
-//        'email'                 => 'test@example.com',
-//        'password'              => 'password',
-//        'password_confirmation' => 'password',
-//        'role_id'               => Role::USER,
-//    ])->assertRedirect();
-//
-//    assertDatabaseHas('users', [
-//        'name'    => 'Test User',
-//        'role_id' => Role::USER,
-//    ]);
-//});
+it('should be able to a admin create a label', function () {
+    seed(RoleSeeder::class);
+    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
 
-//it('should not be able to a manage create a user', function () {
+    actingAs($admin);
+
+    post(route('labels.store'), [
+        'name'    => 'Test Label',
+        'discogs' => 'www.discogs.com',
+    ])->assertRedirect();
+
+    assertDatabaseHas('labels', [
+        'name' => 'Test Label',
+    ]);
+});
+
+//it('should not be able to a manage create a label', function () {
 //    seed(RoleSeeder::class);
 //    $manager = User::factory()->create(['role_id' => Role::MANAGER]);
 //
 //    actingAs($manager);
 //
-//    $request = post(route('users.store'), [
+//    $request = post(route('labels.store'), [
 //        'name'                  => 'Test User',
 //        'email'                 => 'test@example.com',
 //        'password'              => 'password',
@@ -52,20 +47,20 @@ test('only authenticated users can create a new label', function () {
 //
 //    $request->assertForbidden();
 //
-//    assertDatabaseMissing('users', [
+//    assertDatabaseMissing('labels', [
 //        'name'    => 'Test User',
 //        'role_id' => Role::USER,
 //    ]);
 //});
 
-//it('should not be able to a user create a user', function () {
+//it('should not be able to a label create a label', function () {
 //    seed(RoleSeeder::class);
 //
-//    $user = User::factory()->create();
+//    $label = User::factory()->create();
 //
-//    actingAs($user);
+//    actingAs($label);
 //
-//    $request = post(route('users.store'), [
+//    $request = post(route('labels.store'), [
 //        'name'                  => 'Test User',
 //        'email'                 => 'test@example.com',
 //        'password'              => 'password',
@@ -75,7 +70,7 @@ test('only authenticated users can create a new label', function () {
 //
 //    $request->assertForbidden();
 //
-//    assertDatabaseMissing('users', [
+//    assertDatabaseMissing('labels', [
 //        'name'    => 'Test User',
 //        'role_id' => Role::USER,
 //    ]);

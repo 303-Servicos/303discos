@@ -43,7 +43,7 @@
                         @endcan
 
                         @if($user->is_active)
-                            @can('inactivate-user', $user)
+                            @can('delete', $user)
                                 <x-form :action="route('users.inactivate', $user)" put>
                                     <x-buttons.nav-link-yellow text="Inativar"/>
                                 </x-form>
@@ -51,7 +51,7 @@
                                 <x-nav-link.yellow-disabled text="Inativar"/>
                             @endcan
                         @else
-                            @can('activate-user', $user)
+                            @can('restore', $user)
                                 <x-form :action="route('users.activate', $user)" put>
                                     <x-buttons.nav-link-green text="Ativar"/>
                                 </x-form>
@@ -60,7 +60,7 @@
                             @endcan
                         @endif
 
-                        @can('delete', $user)
+                        @can('forceDelete', $user)
                             <x-form delete :action="route('users.destroy', $user)">
                                 <x-buttons.nav-link-red text="Excluir"/>
                             </x-form>

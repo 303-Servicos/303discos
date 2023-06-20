@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use SoftDeletes;
 
     protected $perPage = 10;
 
@@ -41,12 +43,12 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->attributes['password'] = Hash::needsRehash($password) ? Hash::make($password) : $password;
     }
 
-//    protected function isActive(): Attribute
-//    {
-//        return Attribute::make(
-//            get: fn (string $value) => $value ? 'Ativo' : 'Inativo',
-//        );
-//    }
+    protected function isActive(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value) => !$this->attributes['deleted_at'],
+        );
+    }
 
     public function role(): BelongsTo
     {
@@ -56,6 +58,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin(): bool
     {
         return $this->role_id == Role::ADMIN;
+    }
+
+    public function isManager(): bool
+    {
+        return $this->role_id == Role::MANAGER;
     }
 
     public function isUser(): bool

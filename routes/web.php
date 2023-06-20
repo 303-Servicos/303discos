@@ -21,8 +21,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::resource('users', UserController::class)->except(['show']);
-    Route::put('/users/{user}/activate', User\ActivateController::class)->name('users.activate');
-    Route::put('/users/{user}/inactivate', User\InactivateController::class)->name('users.inactivate');
+    Route::put('/users/activate/{id}', User\ActivateController::class)->name('users.activate');
+    Route::put('/users/inactivate/{user}', User\InactivateController::class)->name('users.inactivate');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

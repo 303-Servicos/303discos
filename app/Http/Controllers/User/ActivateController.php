@@ -8,12 +8,13 @@ use Illuminate\Http\RedirectResponse;
 
 class ActivateController extends Controller
 {
-    public function __invoke(User $user): RedirectResponse
+    public function __invoke(int $id): RedirectResponse
     {
-        $this->authorize('activate-user', $user);
+        $user = User::withTrashed()->findOrFail($id);
 
-        $user->is_active = true;
-        $user->save();
+        $this->authorize('restore', $user);
+
+        $user->restore();
 
         return to_route('users.index');
     }

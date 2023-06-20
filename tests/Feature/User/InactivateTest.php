@@ -3,13 +3,11 @@
 use App\Models\{Role, User};
 use Database\Seeders\RoleSeeder;
 
-use function Pest\Laravel\{actingAs, assertDatabaseMissing, put};
-
 test('only authenticated users can inactivate a user', function () {
     $this->seed(RoleSeeder::class);
     $user = User::factory()->create();
 
-    put(route('users.inactivate', $user))->assertRedirect('login');
+    $this->put(route('users.inactivate', $user))->assertRedirect('login');
 });
 
 it('should be able to a admin ianctivate a user', function () {
@@ -17,17 +15,14 @@ it('should be able to a admin ianctivate a user', function () {
     $admin = User::factory()->create(['role_id' => Role::ADMIN]);
     $user  = User::factory()->create(['name' => 'Test User']);
 
-    actingAs($admin);
+    $this->actingAs($admin);
 
-    put(route('users.inactivate', $user))
+    $this->put(route('users.inactivate', $user))
         ->assertRedirect(route('users.index'));
 
     $user->refresh();
 
-    assertDatabaseMissing('users', [
-        'name'      => 'Test User',
-        'is_active' => true,
-    ]);
+    $this->assertSoftDeleted('users', ['id' => $user->id]);
 });
 
 it('should be able to a manager inactivate a user', function () {
@@ -35,16 +30,13 @@ it('should be able to a manager inactivate a user', function () {
     $manager = User::factory()->create(['role_id' => Role::MANAGER]);
     $user    = User::factory()->create(['name' => 'Test User']);
 
-    actingAs($manager);
+    $this->actingAs($manager);
 
-    put(route('users.inactivate', $user))->assertRedirect(route('users.index'));
+    $this->put(route('users.inactivate', $user))->assertRedirect(route('users.index'));
 
     $user->refresh();
 
-    assertDatabaseMissing('users', [
-        'name'      => 'Test User',
-        'is_active' => true,
-    ]);
+    $this->assertSoftDeleted('users', ['id' => $user->id]);
 });
 
 it('should not be able to a user inactivate another user', function () {
@@ -52,6 +44,6 @@ it('should not be able to a user inactivate another user', function () {
     $user  = User::factory()->create();
     $user2 = User::factory()->create();
 
-    actingAs($user);
-    put(route('users.inactivate', $user2))->assertForbidden();
+    $this->actingAs($user);
+    $this->put(route('users.inactivate', $user2))->assertForbidden();
 });

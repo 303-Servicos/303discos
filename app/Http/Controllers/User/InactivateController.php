@@ -10,10 +10,9 @@ class InactivateController extends Controller
 {
     public function __invoke(User $user): RedirectResponse
     {
-        $this->authorize('inactivate-user', $user);
+        $this->authorize('delete', $user);
 
-        $user->is_active = false;
-        $user->save();
+        $user->delete();
 
         return to_route('users.index');
     }

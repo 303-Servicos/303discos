@@ -14,7 +14,7 @@ class UserController extends Controller
         $this->authorize('viewAny', User::class);
 
         return view('users.index', [
-            'users' => User::with('role')->paginate(),
+            'users' => User::withTrashed()->with('role')->paginate(),
         ]);
     }
 
@@ -22,8 +22,10 @@ class UserController extends Controller
     {
         $this->authorize('create', User::class);
 
+        $roles = Role::select(['id', 'name'])->where('id', '!=', Role::ADMIN)->get();
+
         return view('users.create', [
-            'roles' => Role::select(['id', 'name'])->get(),
+            'roles' => $roles,
         ]);
     }
 
@@ -40,9 +42,11 @@ class UserController extends Controller
     {
         $this->authorize('update', $user);
 
+        $roles = Role::select(['id', 'name'])->where('id', '!=', Role::ADMIN)->get();
+
         return view('users.edit', [
             'user'  => $user,
-            'roles' => Role::select(['id', 'name'])->get(),
+            'roles' => $roles,
         ]);
     }
 
@@ -55,11 +59,13 @@ class UserController extends Controller
         return to_route('users.index')->with('success', 'User updated successfully.');
     }
 
-    public function destroy(User $user): RedirectResponse
+    public function destroy(int $id): RedirectResponse
     {
-        $this->authorize('delete', $user);
+        $user = User::withTrashed()->findOrFail($id);
 
-        $user->delete();
+        $this->authorize('forceDelete', $user);
+
+        $user->forceDelete();
 
         return to_route('users.index')->with('success', 'User deleted successfully.');
     }

@@ -9,5 +9,6 @@
                 {!! __("Você está logado como <b>:role</b>", ['role' => user()->role->name]) !!}
             </div>
         </div>
+        <img src="{{ url('images/logo.png') }}" class="mx-auto" width="600" alt="303 Discos">
     </x-container>
 </x-app-layout>

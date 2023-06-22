@@ -21,15 +21,15 @@ it('should be able to a admin access the edit label page with a label to edit', 
     get(route('labels.edit', 2))->assertNotFound();
 });
 
-//it('should be able to a manager access the edit user page only with a user to edit', function () {
-//    seed(RoleSeeder::class);
-//    $manager = User::factory()->create(['role_id' => Role::MANAGER]);
-//    $user = User::factory()->create();
-//
-//    actingAs($manager);
-//    get(route('users.edit', $user))->assertSuccessful();
-//    get(route('users.edit', 3))->assertNotFound();
-//});
+it('should be able to a manager access the edit label page with a label to edit', function () {
+    seed(RoleSeeder::class);
+    $manager = User::factory()->create(['role_id' => Role::MANAGER]);
+    $label   = Label::factory()->create();
+
+    actingAs($manager);
+    get(route('labels.edit', $label))->assertSuccessful();
+    get(route('labels.edit', 2))->assertNotFound();
+});
 
 //it('should not be able to a manager edit the role of a user', function () {
 //    seed(RoleSeeder::class);

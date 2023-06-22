@@ -20,7 +20,7 @@ it('should be able to a admin access the edit user page with a user to edit', fu
     $this->get(route('users.edit', 3))->assertNotFound();
 });
 
-it('should be able to a manager access the edit user page only with a user to edit', function () {
+it('should be able to a manager access the edit user page with a user to edit', function () {
     $this->seed(RoleSeeder::class);
     $manager = User::factory()->create(['role_id' => Role::MANAGER]);
     $user    = User::factory()->create();

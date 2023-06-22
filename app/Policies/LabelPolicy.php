@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\{Label, User};
-use Illuminate\Auth\Access\Response;
 
 class LabelPolicy
 {
@@ -12,17 +11,15 @@ class LabelPolicy
     //        //
     //    }
 
-    public function create(User $user): Response
+    public function create(User $user): bool
     {
-        return $user->isAdmin() || $user->isManager()
-            ? Response::allow()
-            : Response::deny('Você não pode criar um selo');
+        return $user->isAdmin() || $user->isManager();
     }
 
-//    public function update(User $user, Label $label): bool
-//    {
-//        //
-//    }
+    public function update(User $user, Label $label): bool
+    {
+        return $user->isAdmin() || $user->isManager();
+    }
 
 //    public function delete(User $user, Label $label): bool
 //    {

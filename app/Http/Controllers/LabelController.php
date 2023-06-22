@@ -40,4 +40,11 @@ class LabelController extends Controller
 
         return to_route('labels.index')->with('success', 'User created successfully.');
     }
+
+    public function edit(Label $label): View
+    {
+        $this->authorize('update', $label);
+
+        return view('labels.edit', compact('label'));
+    }
 }

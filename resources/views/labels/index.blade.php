@@ -41,7 +41,7 @@
                     </x-table.td>
                     <x-table.action-td>
                         @can('update', $label)
-                            <x-nav-link.blue text="Editar" :href="route('users.edit', $user)"/>
+                            <x-nav-link.blue text="Editar" :href="route('labels.edit', $label)"/>
                         @else
                             <x-nav-link.blue-disabled text="Editar"/>
                         @endcan

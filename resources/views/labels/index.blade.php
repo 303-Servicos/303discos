@@ -38,7 +38,7 @@
                         @endif
                     </x-table.td>
                     <x-table.action-td>
-{{--                        <x-nav-link.yellow text="Ver" :href="route('labels.show', $label)"/>--}}
+                        <x-nav-link.yellow text="Informações" :href="route('labels.show', $label)"/>
                         @can('update', $label)
                             <x-nav-link.blue text="Editar" :href="route('labels.edit', $label)"/>
                         @endcan

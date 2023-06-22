@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-header title="{{ __('Editar label') }}">
+        <x-header title="{{ __('Editar :label', ['label' => $label->name]) }}">
             <x-buttons.nav-link-secondary text="Voltar" href="{{ route('labels.index') }}"/>
         </x-header>
     </x-slot>

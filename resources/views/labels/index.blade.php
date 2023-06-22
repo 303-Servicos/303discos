@@ -40,7 +40,11 @@
                         @endif
                     </x-table.td>
                     <x-table.action-td>
-
+                        @can('update', $label)
+                            <x-nav-link.blue text="Editar" :href="route('users.edit', $user)"/>
+                        @else
+                            <x-nav-link.blue-disabled text="Editar"/>
+                        @endcan
                     </x-table.action-td>
                 </x-table.tr>
             @endforeach

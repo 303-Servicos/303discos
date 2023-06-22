@@ -33,7 +33,7 @@ it('should be able to a admin update a label', function () {
     ]);
 });
 
-it('should be able to a manager update a user', function () {
+it('should be able to a manager update a label', function () {
     seed(RoleSeeder::class);
     $manager = User::factory()->create(['role_id' => Role::MANAGER]);
     $label   = Label::factory()->create(['name' => 'Test Label']);
@@ -55,14 +55,14 @@ it('should be able to a manager update a user', function () {
     ]);
 });
 
-//it('should not be able to a user upgradre a user', function () {
-//    seed(RoleSeeder::class);
-//    $user = User::factory()->create(['role_id' => Role::USER]);
-//
-//    actingAs($user);
-//
-//    put(route('users.update', $user), [
-//        'name'  => 'New Name',
-//        'email' => 'email@teste.com',
-//    ])->assertForbidden();
-//});
+it('should not be able to a user upgrade a label', function () {
+    seed(RoleSeeder::class);
+    $user  = User::factory()->create(['role_id' => Role::USER]);
+    $label = Label::factory()->create(['name' => 'Test Label']);
+
+    actingAs($user);
+
+    put(route('labels.update', $label), [
+        'name' => 'New Label Name',
+    ])->assertForbidden();
+});

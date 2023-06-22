@@ -32,3 +32,13 @@ it('should be able to a manager access the label info page with a label', functi
     get(route('labels.show', $label))->assertSuccessful();
     get(route('labels.show', 2))->assertNotFound();
 });
+
+it('should be able to a user access the label info page', function () {
+    seed(RoleSeeder::class);
+    $user  = User::factory()->create(['role_id' => Role::USER]);
+    $label = Label::factory()->create();
+
+    actingAs($user);
+
+    get(route('labels.show', $label))->assertSuccessful();
+});

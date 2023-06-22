@@ -24,7 +24,7 @@
                     <x-table.td>
                         @if($label->logo)
                             <a href="{{ url($label->logo) }}" target="_blank">
-                                <img src="{{ url($label->logo) }}" class="mx-auto" width="90" alt="logo">
+                                <img src="{{ url($label->logo) }}" class="mx-auto" width="50" alt="logo">
                             </a>
                         @else
                             <a href="https://via.placeholder.com/70/" target="_blank">
@@ -36,7 +36,7 @@
                     <x-table.td>{{ $label->slug }}</x-table.td>
                     <x-table.td>
                         @if($label->discogs)
-                            < x-nav-link.blue text="Discogs" :href="$label->discogs" target="_blank"/>
+                            <x-nav-link.blue text="Discogs" :href="$label->discogs" target="_blank"/>
                         @endif
                     </x-table.td>
                     <x-table.action-td>

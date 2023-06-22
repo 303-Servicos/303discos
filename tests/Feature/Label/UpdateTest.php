@@ -1,8 +1,9 @@
 <?php
 
-use App\Models\{Label};
+use App\Models\{Label, Role, User};
+use Database\Seeders\RoleSeeder;
 
-use function Pest\Laravel\put;
+use function Pest\Laravel\{actingAs, assertDatabaseHas, assertDatabaseMissing, put, seed};
 
 test('only authenticated users can update a label', function () {
     $label = Label::factory()->create();
@@ -10,35 +11,33 @@ test('only authenticated users can update a label', function () {
     put(route('labels.update', $label))->assertRedirect('login');
 });
 
-//it('should be able to a admin update a user', function () {
-//    seed(RoleSeeder::class);
-//    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
-//    $user  = User::factory()->create(['name' => 'Test User']);
-//
-//    actingAs($admin);
-//
-//    put(route('users.update', $user), [
-//        'name'  => 'New Name',
-//        'email' => $user->email,
-//    ])->assertRedirect(route('users.index'));
-//
-//    $user->refresh();
-//
-//    assertDatabaseMissing('users', [
-//        'name'    => 'Test User',
-//        'role_id' => 1,
-//    ]);
-//
-//    assertDatabaseHas('users', [
-//        'name' => 'New Name',
-//    ]);
-//
-//});
-//
+it('should be able to a admin update a label', function () {
+    seed(RoleSeeder::class);
+    $admin = User::factory()->create(['role_id' => Role::ADMIN]);
+    $label = Label::factory()->create(['name' => 'Test Label']);
+
+    actingAs($admin);
+
+    put(route('labels.update', $label), [
+        'name' => 'New Label Name',
+    ])->assertRedirect(route('labels.index'));
+
+    $label->refresh();
+
+    assertDatabaseMissing('labels', [
+        'name' => 'Test Label',
+    ]);
+
+    assertDatabaseHas('labels', [
+        'name' => 'New Label Name',
+    ]);
+
+});
+
 //it('should be able to a manager update a user', function () {
 //    seed(RoleSeeder::class);
 //    $manager = User::factory()->create(['role_id' => Role::MANAGER]);
-//    $user    = User::factory()->create(['name' => 'Test User']);
+//    $user    = User::factory()->create(['name' => 'Test Label']);
 //
 //    actingAs($manager);
 //
@@ -50,7 +49,7 @@ test('only authenticated users can update a label', function () {
 //    $user->refresh();
 //
 //    assertDatabaseMissing('users', [
-//        'name'    => 'Test User',
+//        'name'    => 'Test Label',
 //        'role_id' => 1,
 //    ]);
 //

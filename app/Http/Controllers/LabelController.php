@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Label\CreateLabelRequest;
+use App\Http\Requests\Label\{CreateLabelRequest, UpdateLabelRequest};
 use App\Models\Label;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -30,7 +30,6 @@ class LabelController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('logo')) {
-
             $file         = $request->file('logo');
             $filename     = $data['name'] . '.' . $file->getClientOriginalExtension();
             $data['logo'] = $file->storeAs('uploads/images/labels', $filename, 'public');
@@ -46,5 +45,22 @@ class LabelController extends Controller
         $this->authorize('update', $label);
 
         return view('labels.edit', compact('label'));
+    }
+
+    public function update(UpdateLabelRequest $request, Label $label): RedirectResponse
+    {
+        $this->authorize('update', $label);
+
+        $data = $request->validated();
+
+        if ($request->hasFile('logo')) {
+            $file         = $request->file('logo');
+            $filename     = $data['name'] . '.' . $file->getClientOriginalExtension();
+            $data['logo'] = $file->storeAs('uploads/images/labels', $filename, 'public');
+        }
+
+        $label->update($data);
+
+        return to_route('labels.index')->with('success', 'User updated successfully.');
     }
 }

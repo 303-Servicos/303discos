@@ -23,7 +23,7 @@ class UpdateLabelRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique("labels", 'name')->ignore($this->route('label')),
+                Rule::unique("labels")->ignore($this->route('label')),
             ],
             'logo' => [
                 'nullable',

@@ -27,9 +27,7 @@
                                 <img src="{{ url($label->logo) }}" class="mx-auto" width="50" alt="logo">
                             </a>
                         @else
-                            <a href="https://via.placeholder.com/70/" target="_blank">
-                                <img src="https://via.placeholder.com/70/" class="mx-auto" alt="logo">
-                            </a>
+                            <img src="https://via.placeholder.com/70/" class="mx-auto" alt="logo">
                         @endif
                     </x-table.td>
                     <x-table.td>{{ $label->name }}</x-table.td>
@@ -41,9 +39,7 @@
                     </x-table.td>
                     <x-table.action-td>
                         @can('update', $label)
-                            <x-nav-link.blue text="Editar" :href="route('labels.edit', $label)"/>
-                        @else
-                            <x-nav-link.blue-disabled text="Editar"/>
+                            <x-nav-link.blue text="Editar" :href="route('labels.edit', $label)" class="items-center"/>
                         @endcan
                     </x-table.action-td>
                 </x-table.tr>

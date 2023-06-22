@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Label\{CreateLabelRequest, UpdateLabelRequest};
+use App\Http\Requests\Label\{StoreLabelRequest, UpdateLabelRequest};
 use App\Models\Label;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -23,7 +23,7 @@ class LabelController extends Controller
         return view('labels.create');
     }
 
-    public function store(CreateLabelRequest $request): RedirectResponse
+    public function store(StoreLabelRequest $request): RedirectResponse
     {
         $this->authorize('create', Label::class);
 

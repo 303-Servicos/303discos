@@ -11,7 +11,6 @@
         <x-table>
             <x-table.thead>
                 <tr>
-                    <x-table.th>ID</x-table.th>
                     <x-table.th>Nome</x-table.th>
                     <x-table.th>E-mail</x-table.th>
                     <x-table.th>Tipo de usuário</x-table.th>
@@ -22,7 +21,6 @@
             <tbody>
             @foreach($users as $user)
                 <x-table.tr>
-                    <x-table.td>{{ $user->id }}</x-table.td>
                     <x-table.first-td>{{ $user->name }}</x-table.first-td>
                     <x-table.td>{{ $user->email }}</x-table.td>
                     <x-table.td>{{ $user->role->name }}</x-table.td>

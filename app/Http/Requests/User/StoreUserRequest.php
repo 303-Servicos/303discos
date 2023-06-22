@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules;
 
-class CreateUserRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * @return array<string,array<int,string|null>>

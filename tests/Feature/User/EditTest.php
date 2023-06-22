@@ -40,7 +40,7 @@ it('should not be able to a manager edit the role of a user', function () {
     $this->get(route('users.edit', $user))->assertDontSee('Tipo de usuário');
 });
 
-it('should not be able to a user acess the edir user page', function () {
+it('should not be able to a user access the edit user page', function () {
     $this->seed(RoleSeeder::class);
     $user = User::factory()->create(['role_id' => Role::USER]);
 

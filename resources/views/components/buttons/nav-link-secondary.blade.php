@@ -5,5 +5,5 @@
           dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600
           dark:focus:ring-gray-700
           ">
-    {{ $slot }}
+    {{ $text }}
 </a>

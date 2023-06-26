@@ -3,7 +3,7 @@
 use App\Models\{Role, User};
 use Database\Seeders\RoleSeeder;
 
-test('only authenticated users can access the user clist', function () {
+test('only authenticated users can access the user list', function () {
     $this->get(route('users.index'))->assertRedirect('login');
 });
 

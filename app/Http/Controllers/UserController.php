@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\User\{CreateUserRequest, UpdateUserRequest};
+use App\Http\Requests\User\{StoreUserRequest, UpdateUserRequest};
 use App\Models\{Role, User};
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -29,7 +29,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(CreateUserRequest $request): RedirectResponse
+    public function store(StoreUserRequest $request): RedirectResponse
     {
         $this->authorize('create', User::class);
 

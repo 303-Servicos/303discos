@@ -4,5 +4,5 @@
           mr-2 dark:bg-green-600 dark:hover:bg-green-700
           focus:outline-none dark:focus:ring-green-800 border border-green-500
           ">
-    {{ $slot }}
+    {{ $text }}
 </a>

@@ -1,3 +1,3 @@
-<td class="px-6 py-4 flex justify-between">
+<td class="px-6 py-3 flex justify-between items-center">
     {{ $slot }}
 </td>

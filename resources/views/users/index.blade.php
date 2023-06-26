@@ -2,9 +2,7 @@
     <x-slot name="header">
         <x-header title="{{ __('Usuários') }}">
             @can('create', \App\Models\User::class)
-                <x-buttons.nav-link-primary href="{{ route('users.create') }}">
-                    Criar novo usuário
-                </x-buttons.nav-link-primary>
+                <x-buttons.nav-link-primary text="Criar novo usuário" href="{{ route('users.create') }}"/>
             @endcan
         </x-header>
     </x-slot>
@@ -13,7 +11,6 @@
         <x-table>
             <x-table.thead>
                 <tr>
-                    <x-table.th>ID</x-table.th>
                     <x-table.th>Nome</x-table.th>
                     <x-table.th>E-mail</x-table.th>
                     <x-table.th>Tipo de usuário</x-table.th>
@@ -24,7 +21,6 @@
             <tbody>
             @foreach($users as $user)
                 <x-table.tr>
-                    <x-table.td>{{ $user->id }}</x-table.td>
                     <x-table.first-td>{{ $user->name }}</x-table.first-td>
                     <x-table.td>{{ $user->email }}</x-table.td>
                     <x-table.td>{{ $user->role->name }}</x-table.td>
@@ -44,7 +40,7 @@
 
                         @if($user->is_active)
                             @can('delete', $user)
-                                <x-form :action="route('users.inactivate', $user)" put>
+                                <x-form :action="route('users.inactivate', $user)" patch>
                                     <x-buttons.nav-link-yellow text="Inativar"/>
                                 </x-form>
                             @else
@@ -52,7 +48,7 @@
                             @endcan
                         @else
                             @can('restore', $user)
-                                <x-form :action="route('users.activate', $user)" put>
+                                <x-form :action="route('users.activate', $user)" patch>
                                     <x-buttons.nav-link-green text="Ativar"/>
                                 </x-form>
                             @else
@@ -61,7 +57,7 @@
                         @endif
 
                         @can('forceDelete', $user)
-                            <x-form delete :action="route('users.destroy', $user)">
+                            <x-form :action="route('users.destroy', $user)" delete>
                                 <x-buttons.nav-link-red text="Excluir"/>
                             </x-form>
                         @else

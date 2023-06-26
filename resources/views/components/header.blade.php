@@ -2,7 +2,7 @@
     'title' => ''
 ])
 
-<div class="flex justify-between items-center my-2">
+<div class="flex justify-between items-center">
     <h2 @class([
             'font-semibold',
             'text-xl',

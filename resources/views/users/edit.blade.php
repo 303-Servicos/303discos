@@ -6,7 +6,7 @@
     </x-slot>
 
     <x-container>
-        <x-form put :action="route('users.update', $user)">
+        <x-form :action="route('users.update', $user)" put>
             <x-form.input label="Nome" name="name" placeholder="Ex: Paulo Cavalcanti" :value="$user->name" required/>
             <x-form.input label="Email" name="email" type="email" placeholder="Ex: teste@email.com.br" :value="$user->email" required/>
             @can('update-user-role', $user)

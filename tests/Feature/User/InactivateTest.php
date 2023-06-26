@@ -7,7 +7,7 @@ test('only authenticated users can inactivate a user', function () {
     $this->seed(RoleSeeder::class);
     $user = User::factory()->create();
 
-    $this->put(route('users.inactivate', $user))->assertRedirect('login');
+    $this->patch(route('users.inactivate', $user))->assertRedirect('login');
 });
 
 it('should be able to a admin ianctivate a user', function () {
@@ -17,7 +17,7 @@ it('should be able to a admin ianctivate a user', function () {
 
     $this->actingAs($admin);
 
-    $this->put(route('users.inactivate', $user))
+    $this->patch(route('users.inactivate', $user))
         ->assertRedirect(route('users.index'));
 
     $user->refresh();
@@ -32,7 +32,7 @@ it('should be able to a manager inactivate a user', function () {
 
     $this->actingAs($manager);
 
-    $this->put(route('users.inactivate', $user))->assertRedirect(route('users.index'));
+    $this->patch(route('users.inactivate', $user))->assertRedirect(route('users.index'));
 
     $user->refresh();
 
@@ -45,5 +45,5 @@ it('should not be able to a user inactivate another user', function () {
     $user2 = User::factory()->create();
 
     $this->actingAs($user);
-    $this->put(route('users.inactivate', $user2))->assertForbidden();
+    $this->patch(route('users.inactivate', $user2))->assertForbidden();
 });

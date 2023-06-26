@@ -6,7 +6,7 @@
     </x-slot>
 
     <x-container>
-        <x-form put :action="route('labels.update', $label)">
+        <x-form :action="route('labels.update', $label)" put>
             <x-form.input label="Nome" name="name" placeholder="Ex: Southside Records" :value="$label->name" required/>
             <x-form.input label="Discogs" name="discogs" placeholder="Ex: https://www.discogs.com/release/26043718-Various-Southside-Records-002" :value="$label->discogs"/>
             <x-form.input-file label="Logo" name="logo" helper="Máximo 2MB. Formatos: PNG, JPG, JPEG (Mín. 300x300px)."/>

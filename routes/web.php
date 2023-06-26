@@ -22,8 +22,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     #region Users
     Route::resource('users', UserController::class)->except(['show']);
-    Route::put('/users/activate/{id}', User\ActivateController::class)->name('users.activate');
-    Route::put('/users/inactivate/{user}', User\InactivateController::class)->name('users.inactivate');
+    Route::patch('/users/activate/{id}', User\ActivateController::class)->name('users.activate');
+    Route::patch('/users/inactivate/{user}', User\InactivateController::class)->name('users.inactivate');
     #endregion
 
     #region Labels

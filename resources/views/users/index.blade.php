@@ -40,7 +40,7 @@
 
                         @if($user->is_active)
                             @can('delete', $user)
-                                <x-form :action="route('users.inactivate', $user)" put>
+                                <x-form :action="route('users.inactivate', $user)" patch>
                                     <x-buttons.nav-link-yellow text="Inativar"/>
                                 </x-form>
                             @else
@@ -48,7 +48,7 @@
                             @endcan
                         @else
                             @can('restore', $user)
-                                <x-form :action="route('users.activate', $user)" put>
+                                <x-form :action="route('users.activate', $user)" patch>
                                     <x-buttons.nav-link-green text="Ativar"/>
                                 </x-form>
                             @else
@@ -57,7 +57,7 @@
                         @endif
 
                         @can('forceDelete', $user)
-                            <x-form delete :action="route('users.destroy', $user)">
+                            <x-form :action="route('users.destroy', $user)" delete>
                                 <x-buttons.nav-link-red text="Excluir"/>
                             </x-form>
                         @else
